@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="LibararyMS.Domain/LibraryMS.Domain.csproj" />
+  <Project Path="LibarayMS.Presentation/LibraryMS.Presentation.csproj" />
+  <Project Path="LibraryMS.Application/LibraryMS.Application.csproj" />
+  <Project Path="LibraryMS.Infrastructure/LibraryMS.Infrastructure.csproj" />
+</Solution>

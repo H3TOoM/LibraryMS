@@ -1,0 +1,11 @@
+D:\Web API Projects\LibarayMS\LibararyMS.Domain\bin\Debug\net10.0\LibraryMS.Domain.deps.json
+D:\Web API Projects\LibarayMS\LibararyMS.Domain\bin\Debug\net10.0\LibraryMS.Domain.dll
+D:\Web API Projects\LibarayMS\LibararyMS.Domain\bin\Debug\net10.0\LibraryMS.Domain.pdb
+D:\Web API Projects\LibarayMS\LibararyMS.Domain\obj\Debug\net10.0\LibraryMS.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Web API Projects\LibarayMS\LibararyMS.Domain\obj\Debug\net10.0\LibraryMS.Domain.AssemblyInfoInputs.cache
+D:\Web API Projects\LibarayMS\LibararyMS.Domain\obj\Debug\net10.0\LibraryMS.Domain.AssemblyInfo.cs
+D:\Web API Projects\LibarayMS\LibararyMS.Domain\obj\Debug\net10.0\LibraryMS.Domain.csproj.CoreCompileInputs.cache
+D:\Web API Projects\LibarayMS\LibararyMS.Domain\obj\Debug\net10.0\LibraryMS.Domain.dll
+D:\Web API Projects\LibarayMS\LibararyMS.Domain\obj\Debug\net10.0\refint\LibraryMS.Domain.dll
+D:\Web API Projects\LibarayMS\LibararyMS.Domain\obj\Debug\net10.0\LibraryMS.Domain.pdb
+D:\Web API Projects\LibarayMS\LibararyMS.Domain\obj\Debug\net10.0\ref\LibraryMS.Domain.dll

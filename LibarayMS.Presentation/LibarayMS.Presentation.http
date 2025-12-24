@@ -1,0 +1,6 @@
+@LibarayMS.Presentation_HostAddress = http://localhost:5051
+
+GET {{LibarayMS.Presentation_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
