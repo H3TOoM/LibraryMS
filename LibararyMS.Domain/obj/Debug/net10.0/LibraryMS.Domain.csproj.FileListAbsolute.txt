@@ -9,3 +9,4 @@ D:\Web API Projects\LibarayMS\LibararyMS.Domain\obj\Debug\net10.0\LibraryMS.Doma
 D:\Web API Projects\LibarayMS\LibararyMS.Domain\obj\Debug\net10.0\refint\LibraryMS.Domain.dll
 D:\Web API Projects\LibarayMS\LibararyMS.Domain\obj\Debug\net10.0\LibraryMS.Domain.pdb
 D:\Web API Projects\LibarayMS\LibararyMS.Domain\obj\Debug\net10.0\ref\LibraryMS.Domain.dll
+D:\Web API Projects\LibarayMS\LibararyMS.Domain\obj\Debug\net10.0\LibraryMS.Domain.sourcelink.json

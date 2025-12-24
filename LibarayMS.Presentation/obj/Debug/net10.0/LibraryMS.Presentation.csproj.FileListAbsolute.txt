@@ -216,3 +216,7 @@ D:\Web API Projects\LibarayMS\LibarayMS.Presentation\bin\Debug\net10.0\LibraryMS
 D:\Web API Projects\LibarayMS\LibarayMS.Presentation\bin\Debug\net10.0\LibraryMS.Infrastructure.dll
 D:\Web API Projects\LibarayMS\LibarayMS.Presentation\bin\Debug\net10.0\LibraryMS.Infrastructure.pdb
 D:\Web API Projects\LibarayMS\LibarayMS.Presentation\bin\Debug\net10.0\LibraryMS.Domain.pdb
+D:\Web API Projects\LibarayMS\LibarayMS.Presentation\obj\Debug\net10.0\LibraryMS.Presentation.sourcelink.json
+D:\Web API Projects\LibarayMS\LibarayMS.Presentation\bin\Debug\net10.0\AutoMapper.dll
+D:\Web API Projects\LibarayMS\LibarayMS.Presentation\bin\Debug\net10.0\LibraryMS.Application.dll
+D:\Web API Projects\LibarayMS\LibarayMS.Presentation\bin\Debug\net10.0\LibraryMS.Application.pdb

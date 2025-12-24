@@ -61,3 +61,4 @@ D:\Web API Projects\LibarayMS\LibraryMS.Infrastructure\obj\Debug\net10.0\refint\
 D:\Web API Projects\LibarayMS\LibraryMS.Infrastructure\obj\Debug\net10.0\LibraryMS.Infrastructure.pdb
 D:\Web API Projects\LibarayMS\LibraryMS.Infrastructure\obj\Debug\net10.0\LibraryMS.Infrastructure.genruntimeconfig.cache
 D:\Web API Projects\LibarayMS\LibraryMS.Infrastructure\obj\Debug\net10.0\ref\LibraryMS.Infrastructure.dll
+D:\Web API Projects\LibarayMS\LibraryMS.Infrastructure\obj\Debug\net10.0\LibraryMS.Infrastructure.sourcelink.json

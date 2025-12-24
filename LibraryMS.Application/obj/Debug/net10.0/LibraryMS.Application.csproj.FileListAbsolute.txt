@@ -9,3 +9,8 @@ D:\Web API Projects\LibarayMS\LibraryMS.Application\obj\Debug\net10.0\LibraryMS.
 D:\Web API Projects\LibarayMS\LibraryMS.Application\obj\Debug\net10.0\refint\LibraryMS.Application.dll
 D:\Web API Projects\LibarayMS\LibraryMS.Application\obj\Debug\net10.0\LibraryMS.Application.pdb
 D:\Web API Projects\LibarayMS\LibraryMS.Application\obj\Debug\net10.0\ref\LibraryMS.Application.dll
+D:\Web API Projects\LibarayMS\LibraryMS.Application\bin\Debug\net10.0\LibraryMS.Domain.dll
+D:\Web API Projects\LibarayMS\LibraryMS.Application\bin\Debug\net10.0\LibraryMS.Domain.pdb
+D:\Web API Projects\LibarayMS\LibraryMS.Application\obj\Debug\net10.0\LibraryMS.Application.csproj.AssemblyReference.cache
+D:\Web API Projects\LibarayMS\LibraryMS.Application\obj\Debug\net10.0\LibraryMS.Application.sourcelink.json
+D:\Web API Projects\LibarayMS\LibraryMS.Application\obj\Debug\net10.0\LibraryM.49C662E1.Up2Date
