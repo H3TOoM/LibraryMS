@@ -1,0 +1,83 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = crlf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.cs]
+charset = utf-8
+indent_style = space
+indent_size = 4
+end_of_line = crlf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# .NET coding conventions
+csharp_style_namespace_declarations = file_scoped:suggestion
+csharp_style_prefer_top_level_statements = false:suggestion
+csharp_style_expression_bodied_methods = when_on_single_line:suggestion
+csharp_style_expression_bodied_constructors = when_on_single_line:suggestion
+csharp_style_expression_bodied_operators = when_on_single_line:suggestion
+csharp_style_expression_bodied_properties = when_on_single_line:suggestion
+csharp_style_expression_bodied_indexers = when_on_single_line:suggestion
+csharp_style_expression_bodied_accessors = when_on_single_line:suggestion
+
+# Code quality
+dotnet_diagnostic.CA1062.severity = suggestion
+dotnet_diagnostic.CA2007.severity = suggestion
+dotnet_diagnostic.CA1822.severity = suggestion
+
+# Naming conventions
+dotnet_naming_style.pascal_case_style.capitalization = pascal_case
+dotnet_naming_style.camel_case_style.capitalization = camel_case
+
+dotnet_naming_rule.class_rule.severity = error
+dotnet_naming_rule.class_rule.symbols = class_symbols
+dotnet_naming_rule.class_rule.style = pascal_case_style
+
+dotnet_naming_rule.method_rule.severity = error
+dotnet_naming_rule.method_rule.symbols = method_symbols
+dotnet_naming_rule.method_rule.style = pascal_case_style
+
+dotnet_naming_rule.property_rule.severity = error
+dotnet_naming_rule.property_rule.symbols = property_symbols
+dotnet_naming_rule.property_rule.style = pascal_case_style
+
+dotnet_naming_rule.field_rule.severity = error
+dotnet_naming_rule.field_rule.symbols = field_symbols
+dotnet_naming_rule.field_rule.style = camel_case_style
+
+dotnet_naming_symbols.class_symbols.applicable_kinds = class,struct,interface,enum
+dotnet_naming_symbols.class_symbols.applicable_accessibilities = public,internal,private,protected,protected_internal
+
+dotnet_naming_symbols.method_symbols.applicable_kinds = method
+dotnet_naming_symbols.method_symbols.applicable_accessibilities = public,internal,private,protected,protected_internal
+
+dotnet_naming_symbols.property_symbols.applicable_kinds = property
+dotnet_naming_symbols.property_symbols.applicable_accessibilities = public,internal,private,protected,protected_internal
+
+dotnet_naming_symbols.field_symbols.applicable_kinds = field
+dotnet_naming_symbols.field_symbols.applicable_accessibilities = private,protected,protected_internal
+
+[*.json]
+indent_style = space
+indent_size = 2
+
+[*.yml]
+indent_style = space
+indent_size = 2
+
+[*.yaml]
+indent_style = space
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+[Makefile]
+indent_style = tab
+
+[*.{bat,cmd}]
+end_of_line = crlf

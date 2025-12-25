@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using LibraryMS.Application.Helpers;
 using LibraryMS.Application.Interfaces;
 using LibraryMS.Application.Mapping;
@@ -7,19 +7,32 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
 namespace LibraryMS.Application
 {
+    /// <summary>
+    /// Static class for configuring application layer dependencies
+    /// Registers services, AutoMapper profiles, and JWT authentication
+    /// </summary>
     public static class ApplicationDependencyInjection
     {
-        public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration Configuration)
+        /// <summary>
+        /// Adds application layer services and configurations to the dependency injection container
+        /// </summary>
+        /// <param name="services">The service collection to add services to</param>
+        /// <param name="configuration">Application configuration for JWT settings</param>
+        /// <returns>The updated service collection</returns>
+        public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
         {
-            // Register application services here
-            // e.g., services.AddTransient<IBookService, BookService>();
+            #region Service Registrations
 
+            // Register AutoMapper with custom mapping profiles
             services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
+            services.AddSingleton<JwtSecurityTokenHandler>();
 
+            // Register all application services with scoped lifetime
             services.AddScoped<IAccountService, AccountService>()
                 .AddScoped<IBookService, BookService>()
                 .AddScoped<IFineService, FineService>()
@@ -28,9 +41,10 @@ namespace LibraryMS.Application
                 .AddScoped<ICategoryService, CategoryService>()
                 .AddScoped<IBorrowService, BorrowService>();
 
+            #endregion
 
-            // Configure JWT settings
-            var jwtSettingsSection = Configuration.GetSection("JwtSettings");
+            #region JWT Authentication Configuration
+            var jwtSettingsSection = configuration.GetSection("JwtSettings");
             services.Configure<JwtSettings>(jwtSettingsSection);
             var jwtSettings = jwtSettingsSection.Get<JwtSettings>() ?? new JwtSettings();
 
@@ -55,6 +69,7 @@ namespace LibraryMS.Application
 
             services.AddAuthorization();
 
+            #endregion
 
             return services;
         }

@@ -25,7 +25,6 @@ D:\Web API Projects\LibarayMS\LibarayMS.Presentation\obj\Debug\net10.0\staticweb
 D:\Web API Projects\LibarayMS\LibarayMS.Presentation\obj\Debug\net10.0\staticwebassets.development.json
 D:\Web API Projects\LibarayMS\LibarayMS.Presentation\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 D:\Web API Projects\LibarayMS\LibarayMS.Presentation\obj\Debug\net10.0\swae.build.ex.cache
-D:\Web API Projects\LibarayMS\LibarayMS.Presentation\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 D:\Web API Projects\LibarayMS\LibarayMS.Presentation\obj\Debug\net10.0\LibraryM.3AEF5BFF.Up2Date
 D:\Web API Projects\LibarayMS\LibarayMS.Presentation\obj\Debug\net10.0\LibraryMS.Presentation.dll
 D:\Web API Projects\LibarayMS\LibarayMS.Presentation\obj\Debug\net10.0\refint\LibraryMS.Presentation.dll
@@ -220,3 +219,7 @@ D:\Web API Projects\LibarayMS\LibarayMS.Presentation\obj\Debug\net10.0\LibraryMS
 D:\Web API Projects\LibarayMS\LibarayMS.Presentation\bin\Debug\net10.0\AutoMapper.dll
 D:\Web API Projects\LibarayMS\LibarayMS.Presentation\bin\Debug\net10.0\LibraryMS.Application.dll
 D:\Web API Projects\LibarayMS\LibarayMS.Presentation\bin\Debug\net10.0\LibraryMS.Application.pdb
+D:\Web API Projects\LibarayMS\LibarayMS.Presentation\bin\Debug\net10.0\BCrypt.Net-Next.dll
+D:\Web API Projects\LibarayMS\LibarayMS.Presentation\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Web API Projects\LibarayMS\LibarayMS.Presentation\bin\Debug\net10.0\Scalar.AspNetCore.dll
+D:\Web API Projects\LibarayMS\LibarayMS.Presentation\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

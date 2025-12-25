@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: libraryms_sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong!Passw0rd
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+      - ./init-db:/docker-entrypoint-initdb.d
+    networks:
+      - libraryms_network
+
+  libraryms_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: libraryms_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=LibraryMS;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+      - JwtSettings__Issuer=LibraryManagementSystem
+      - JwtSettings__Audience=LibraryUsers
+      - JwtSettings__SigningKey=your-super-secret-key-here-at-least-32-characters-long-for-docker
+      - JwtSettings__ExpiryMinutes=60
+    ports:
+      - "8080:80"
+    depends_on:
+      - sqlserver
+    networks:
+      - libraryms_network
+    restart: unless-stopped
+
+volumes:
+  sqlserver_data:
+
+networks:
+  libraryms_network:
+    driver: bridge
