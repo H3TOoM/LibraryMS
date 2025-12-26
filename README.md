@@ -56,7 +56,7 @@ A comprehensive REST API for managing library operations including book manageme
 
 ### Backend
 - **Framework**: .NET 10 (ASP.NET Core Web API)
-- **Language**: C# 12
+- **Language**: C# 14
 - **ORM**: Entity Framework Core 10
 - **Database**: SQL Server
 - **Authentication**: JWT Bearer Tokens
