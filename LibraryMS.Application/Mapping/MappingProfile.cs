@@ -26,6 +26,10 @@ namespace LibraryMS.Application.Mapping
             CreateMap<BookCreateDto, Book>();
             CreateMap<BookUpdateDto, Book>();
 
+            // If Field in Dto is null ignore it while mapping to Entity
+            CreateMap<BookUpdateDto, Book>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
             // Entity to DTO mapping with category name resolution
             CreateMap<Book, BookReadDto>()
                 .ForCtorParam(nameof(BookReadDto.CategoryName), opt =>

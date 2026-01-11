@@ -43,6 +43,12 @@ namespace LibraryMS.Application
 
             #endregion
 
+
+            // MediatR Configuration
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ApplicationDependencyInjection).Assembly));
+
+
+
             #region JWT Authentication Configuration
             var jwtSettingsSection = configuration.GetSection("JwtSettings");
             services.Configure<JwtSettings>(jwtSettingsSection);

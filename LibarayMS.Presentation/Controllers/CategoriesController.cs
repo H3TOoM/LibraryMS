@@ -70,7 +70,6 @@ namespace LibarayMS.Presentation.Controllers
         /// <param name="dto">Category creation data</param>
         /// <returns>Created category ID</returns>
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Create([FromBody] CategoryCreateDto dto)
         {
             var categoryId = await _categoryService.CreateAsync(dto);

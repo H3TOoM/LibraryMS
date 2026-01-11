@@ -1,5 +1,8 @@
 using LibraryMS.Application.DTOs.Books;
+using LibraryMS.Application.Features.Book.Commands.AddBook;
+using LibraryMS.Application.Features.Books.Commands.UpdateBook;
 using LibraryMS.Application.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +19,7 @@ namespace LibarayMS.Presentation.Controllers
         #region Fields
 
         private readonly IBookService _bookService;
+        private readonly IMediator _mediator;
 
         #endregion
 
@@ -25,9 +29,10 @@ namespace LibarayMS.Presentation.Controllers
         /// Initializes a new instance of the BooksController
         /// </summary>
         /// <param name="bookService">Service for book operations</param>
-        public BooksController(IBookService bookService)
+        public BooksController(IBookService bookService, IMediator mediator)
         {
             _bookService = bookService;
+            _mediator = mediator;
         }
 
         #endregion
@@ -97,10 +102,9 @@ namespace LibarayMS.Presentation.Controllers
         /// <param name="dto">Book creation data</param>
         /// <returns>Created book ID</returns>
         [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> Create([FromBody] BookCreateDto dto)
+        public async Task<IActionResult> Create(AddBookCommand command)
         {
-            var bookId = await _bookService.CreateAsync(dto);
+            var bookId = await _mediator.Send(command);
             return CreatedAtAction(nameof(GetById), new { id = bookId }, new { Id = bookId });
         }
 
@@ -111,14 +115,13 @@ namespace LibarayMS.Presentation.Controllers
         /// <param name="dto">Updated book information</param>
         /// <returns>Success or NotFound response</returns>
         [HttpPut("{id}")]
-        [Authorize]
-        public async Task<IActionResult> Update(int id, [FromBody] BookUpdateDto dto)
+        public async Task<IActionResult> Update(int id , UpdateBookCommand command)
         {
-            var result = await _bookService.UpdateAsync(id, dto);
-            if (!result)
+           var result = await _mediator.Send(command);
+              if (result == 0)
                 return NotFound("Book not found");
 
-            return Ok("Book updated successfully");
+              return Ok("Book updated successfully");
         }
 
         /// <summary>

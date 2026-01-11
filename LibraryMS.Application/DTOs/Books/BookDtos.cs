@@ -66,50 +66,42 @@ namespace LibraryMS.Application.DTOs.Books
         /// <summary>
         /// Book title
         /// </summary>
-        [Required(ErrorMessage = "Book title is required")]
-        [StringLength(200, MinimumLength = 1, ErrorMessage = "Title must be between 1 and 200 characters")]
-        [Display(Name = "Book Title")]
-        public string Title { get; init; }
+        
+        public string? Title { get; init; }
 
         /// <summary>
         /// Book author
         /// </summary>
-        [Required(ErrorMessage = "Author name is required")]
-        [StringLength(100, MinimumLength = 1, ErrorMessage = "Author name must be between 1 and 100 characters")]
-        [Display(Name = "Author Name")]
-        public string Author { get; init; }
+        
+        public string? Author { get; init; }
 
         /// <summary>
         /// Book ISBN number
         /// </summary>
-        [Required(ErrorMessage = "ISBN is required")]
         [StringLength(20, MinimumLength = 10, ErrorMessage = "ISBN must be between 10 and 20 characters")]
         [RegularExpression(@"^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$", ErrorMessage = "Invalid ISBN format")]
         [Display(Name = "ISBN")]
-        public string ISBN { get; init; }
+        public string? ISBN { get; init; }
 
         /// <summary>
         /// Book publication date
         /// </summary>
-        [Required(ErrorMessage = "Published date is required")]
         [DataType(DataType.Date)]
         [Display(Name = "Published Date")]
-        public DateTime PublishedDate { get; init; }
+        public DateTime? PublishedDate { get; init; } = DateTime.Now;
 
         /// <summary>
         /// Number of available copies
         /// </summary>
-        [Required(ErrorMessage = "Copies available is required")]
         [Range(0, 1000, ErrorMessage = "Copies available must be between 0 and 1000")]
         [Display(Name = "Available Copies")]
-        public int CopiesAvailable { get; init; }
+        public int? CopiesAvailable { get; init; }
 
         /// <summary>
         /// ID of the book's category
         /// </summary>
-        [Required(ErrorMessage = "Category is required")]
         [Display(Name = "Category")]
-        public int CategoryId { get; init; }
+        public int? CategoryId { get; init; }
     }
 
     /// <summary>
