@@ -1,4 +1,4 @@
-﻿using LibraryMS.Domain.Entities;
+using LibraryMS.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,5 +24,7 @@ namespace LibraryMS.Domain.Repoistries
         /// <param name="query">Search query string</param>
         /// <returns>Collection of matching books</returns>
         Task<IEnumerable<Book>> SearchAsync(string query);
+
+        Task<Book?> GetBookByIdAsync(int id);
     }
 }

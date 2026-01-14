@@ -1,4 +1,4 @@
-﻿using LibraryMS.Domain.Entities;
+using LibraryMS.Domain.Entities;
 using LibraryMS.Domain.Repoistries;
 using LibraryMS.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +16,13 @@ namespace LibraryMS.Infrastructure.Repoistries
         {
             _context = context;
             _dbSet = _context.Set<Book>();
+        }
+
+        public async Task<Book?> GetBookByIdAsync(int id)
+        {
+            return await _context.Books
+                .Include(b => b.Category)
+                .FirstOrDefaultAsync(b => b.Id == id);
         }
         public async Task<IEnumerable<Book>> GetByCategoryIdAsync(int categoryId)
         {

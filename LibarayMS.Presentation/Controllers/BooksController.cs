@@ -1,6 +1,9 @@
 using LibraryMS.Application.DTOs.Books;
 using LibraryMS.Application.Features.Book.Commands.AddBook;
+using LibraryMS.Application.Features.Books.Commands.DeleteBook;
 using LibraryMS.Application.Features.Books.Commands.UpdateBook;
+using LibraryMS.Application.Features.Books.Queries.GetBookById;
+using LibraryMS.Application.Features.Books.Queries.GetBooks;
 using LibraryMS.Application.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -8,10 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LibarayMS.Presentation.Controllers
 {
-    /// <summary>
-    /// Controller for managing library books
-    /// Provides CRUD operations, search functionality, and category-based queries
-    /// </summary>
+   
     [Route("api/[controller]")]
     [ApiController]
     public class BooksController : ControllerBase
@@ -25,10 +25,7 @@ namespace LibarayMS.Presentation.Controllers
 
         #region Constructor
 
-        /// <summary>
-        /// Initializes a new instance of the BooksController
-        /// </summary>
-        /// <param name="bookService">Service for book operations</param>
+        
         public BooksController(IBookService bookService, IMediator mediator)
         {
             _bookService = bookService;
@@ -39,14 +36,11 @@ namespace LibarayMS.Presentation.Controllers
 
         #region Read Operations
 
-        /// <summary>
-        /// Retrieves all books in the library
-        /// </summary>
-        /// <returns>List of all books</returns>
+        
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var books = await _bookService.GetAllAsync();
+            var books = await _mediator.Send(new GetAllBookQuery());
             return Ok(books);
         }
 
@@ -58,7 +52,7 @@ namespace LibarayMS.Presentation.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var book = await _bookService.GetByIdAsync(id);
+            var book = await _mediator.Send(new GetBookByIdQuery(id));
             if (book == null)
                 return NotFound("Book not found");
 
@@ -130,10 +124,9 @@ namespace LibarayMS.Presentation.Controllers
         /// <param name="id">Book ID to delete</param>
         /// <returns>Success or NotFound response</returns>
         [HttpDelete("{id}")]
-        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _bookService.DeleteAsync(id);
+            var result = await _mediator.Send(new DeleteBookCommand(id));
             if (!result)
                 return NotFound("Book not found");
 

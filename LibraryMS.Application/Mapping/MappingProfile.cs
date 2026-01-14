@@ -30,10 +30,12 @@ namespace LibraryMS.Application.Mapping
             CreateMap<BookUpdateDto, Book>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
+
             // Entity to DTO mapping with category name resolution
             CreateMap<Book, BookReadDto>()
-                .ForCtorParam(nameof(BookReadDto.CategoryName), opt =>
-                    opt.MapFrom(src => src.Category != null ? src.Category.Name : null));
+                .ForCtorParam(nameof(BookReadDto.CategoryName),
+                    opt => opt.MapFrom(src => src.Category!.Name));
+
 
             #endregion
 

@@ -18,12 +18,7 @@ namespace LibraryMS.Application
     /// </summary>
     public static class ApplicationDependencyInjection
     {
-        /// <summary>
-        /// Adds application layer services and configurations to the dependency injection container
-        /// </summary>
-        /// <param name="services">The service collection to add services to</param>
-        /// <param name="configuration">Application configuration for JWT settings</param>
-        /// <returns>The updated service collection</returns>
+       
         public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
         {
             #region Service Registrations
