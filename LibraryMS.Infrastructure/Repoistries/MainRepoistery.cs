@@ -1,4 +1,4 @@
-﻿using LibraryMS.Domain.Repoistries;
+using LibraryMS.Domain.Repoistries;
 using LibraryMS.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -76,6 +76,7 @@ namespace LibraryMS.Infrastructure.Repoistries
             var existingEntity = await _dbSet.FindAsync(id);
             if (existingEntity == null) return false;
 
+            _context.Entry(existingEntity).Property("Id").IsModified = false;
             _context.Entry(existingEntity).CurrentValues.SetValues(entity);
             return true;
         }
