@@ -4,7 +4,6 @@ using LibraryMS.Application.Features.Categories.Commands.Delete;
 using LibraryMS.Application.Features.Categories.Commands.Update;
 using LibraryMS.Application.Features.Categories.Queries.GetAll;
 using LibraryMS.Application.Features.Categories.Queries.GetById;
-using LibraryMS.Application.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,17 +17,14 @@ namespace LibarayMS.Presentation.Controllers
     {
         #region Fields
 
-        private readonly ICategoryService _categoryService;
         private readonly IMediator _mediator;
 
         #endregion
 
         #region Constructor
 
-       
-        public CategoriesController(ICategoryService categoryService , IMediator mediator)
+        public CategoriesController(IMediator mediator)
         {
-            _categoryService = categoryService;
             _mediator = mediator;
         }
 

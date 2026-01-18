@@ -1,7 +1,12 @@
 using LibraryMS.Application.DTOs.Auth;
 using LibraryMS.Application.DTOs.Members;
-using LibraryMS.Application.Interfaces;
-using LibraryMS.Domain.Entities;
+using LibraryMS.Application.Features.Accounts.Commands.CreateAccount;
+using LibraryMS.Application.Features.Accounts.Commands.UpdateAccount;
+using LibraryMS.Application.Features.Accounts.Commands.Login;
+using LibraryMS.Application.Features.Accounts.Queries.IsEmailTaken;
+using LibraryMS.Application.Features.Members.Queries.GetMemberEntity;
+using LibraryMS.Application.Features.Tokens.Commands.GenerateToken;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibarayMS.Presentation.Controllers
@@ -16,9 +21,7 @@ namespace LibarayMS.Presentation.Controllers
     {
         #region Fields
 
-        private readonly IAccountService _accountService;
-        private readonly ITokenService _tokenService;
-        private readonly IMemberService _memberService;
+        private readonly IMediator _mediator;
 
         #endregion
 
@@ -27,17 +30,10 @@ namespace LibarayMS.Presentation.Controllers
         /// <summary>
         /// Initializes a new instance of the AccountController
         /// </summary>
-        /// <param name="accountService">Service for account-related operations</param>
-        /// <param name="tokenService">Service for JWT token generation</param>
-        /// <param name="memberService">Service for member operations</param>
-        public AccountController(
-            IAccountService accountService,
-            ITokenService tokenService,
-            IMemberService memberService)
+        /// <param name="mediator">Mediator for handling requests</param>
+        public AccountController(IMediator mediator)
         {
-            _accountService = accountService;
-            _tokenService = tokenService;
-            _memberService = memberService;
+            _mediator = mediator;
         }
 
         #endregion
@@ -55,16 +51,16 @@ namespace LibarayMS.Presentation.Controllers
             try
             {
                 // Create the account and get member ID
-                var memberId = await _accountService.CreateAccount(dto);
+                var memberId = await _mediator.Send(new CreateAccountCommand(dto));
 
                 // Retrieve the created member entity
-                var member = await _memberService.GetMemberEntityByIdAsync(memberId);
+                var member = await _mediator.Send(new GetMemberEntityQuery(memberId));
 
                 if (member == null)
                     return BadRequest("Failed to create account");
 
                 // Generate JWT token for the new member
-                var tokenResult = _tokenService.GenerateToken(member);
+                var tokenResult = await _mediator.Send(new GenerateTokenCommand(member));
 
                 // Prepare authentication response
                 var response = new AuthResponseDto
@@ -100,16 +96,16 @@ namespace LibarayMS.Presentation.Controllers
             try
             {
                 // Authenticate user and get member ID
-                var memberId = await _accountService.LoginAsync(dto.Email, dto.Password);
+                var memberId = await _mediator.Send(new LoginCommand(dto.Email, dto.Password));
 
                 // Retrieve the authenticated member
-                var member = await _memberService.GetMemberEntityByIdAsync(memberId);
+                var member = await _mediator.Send(new GetMemberEntityQuery(memberId));
 
                 if (member == null)
                     return Unauthorized("Invalid credentials");
 
                 // Generate JWT token for authentication
-                var tokenResult = _tokenService.GenerateToken(member);
+                var tokenResult = await _mediator.Send(new GenerateTokenCommand(member));
 
                 // Prepare authentication response
                 var response = new AuthResponseDto
@@ -147,7 +143,7 @@ namespace LibarayMS.Presentation.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAccount(int id, [FromBody] MemberUpdateDto dto)
         {
-            var result = await _accountService.UpdateAccount(id, dto);
+            var result = await _mediator.Send(new UpdateAccountCommand(id, dto));
             if (!result)
                 return NotFound("Member not found");
 

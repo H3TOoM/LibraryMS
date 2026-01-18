@@ -1,8 +1,6 @@
 using AutoMapper;
 using LibraryMS.Application.Helpers;
-using LibraryMS.Application.Interfaces;
 using LibraryMS.Application.Mapping;
-using LibraryMS.Application.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,14 +25,8 @@ namespace LibraryMS.Application
             services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
             services.AddSingleton<JwtSecurityTokenHandler>();
 
-            // Register all application services with scoped lifetime
-            services.AddScoped<IAccountService, AccountService>()
-                .AddScoped<IBookService, BookService>()
-                .AddScoped<IFineService, FineService>()
-                .AddScoped<IMemberService, MemberService>()
-                .AddScoped<ITokenService, TokenService>()
-                .AddScoped<ICategoryService, CategoryService>()
-                .AddScoped<IBorrowService, BorrowService>();
+            // Services are no longer used - replaced with MediatR features
+            // All business logic is now handled through MediatR commands and queries
 
             #endregion
 

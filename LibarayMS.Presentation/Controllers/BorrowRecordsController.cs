@@ -1,5 +1,11 @@
 using LibraryMS.Application.DTOs.BorrowRecords;
-using LibraryMS.Application.Interfaces;
+using LibraryMS.Application.Features.Borrows.Commands.Borrow;
+using LibraryMS.Application.Features.Borrows.Commands.Return;
+using LibraryMS.Application.Features.Borrows.Queries.GetAll;
+using LibraryMS.Application.Features.Borrows.Queries.GetById;
+using LibraryMS.Application.Features.Borrows.Queries.GetByBookId;
+using LibraryMS.Application.Features.Borrows.Queries.GetByMemberId;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +22,7 @@ namespace LibarayMS.Presentation.Controllers
     {
         #region Fields
 
-        private readonly IBorrowService _borrowService;
+        private readonly IMediator _mediator;
 
         #endregion
 
@@ -25,10 +31,10 @@ namespace LibarayMS.Presentation.Controllers
         /// <summary>
         /// Initializes a new instance of the BorrowRecordsController
         /// </summary>
-        /// <param name="borrowService">Service for borrow record operations</param>
-        public BorrowRecordsController(IBorrowService borrowService)
+        /// <param name="mediator">Mediator for handling requests</param>
+        public BorrowRecordsController(IMediator mediator)
         {
-            _borrowService = borrowService;
+            _mediator = mediator;
         }
 
         #endregion
@@ -42,7 +48,7 @@ namespace LibarayMS.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var borrowRecords = await _borrowService.GetAllAsync();
+            var borrowRecords = await _mediator.Send(new GetAllBorrowRecordsQuery());
             return Ok(borrowRecords);
         }
 
@@ -54,7 +60,7 @@ namespace LibarayMS.Presentation.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var borrowRecord = await _borrowService.GetByIdAsync(id);
+            var borrowRecord = await _mediator.Send(new GetBorrowRecordByIdQuery(id));
             if (borrowRecord == null)
                 return NotFound("Borrow record not found");
 
@@ -69,7 +75,7 @@ namespace LibarayMS.Presentation.Controllers
         [HttpGet("book/{bookId}")]
         public async Task<IActionResult> GetByBookId(int bookId)
         {
-            var borrowRecords = await _borrowService.GetByBookIdAsync(bookId);
+            var borrowRecords = await _mediator.Send(new GetBorrowRecordsByBookIdQuery(bookId));
             return Ok(borrowRecords);
         }
 
@@ -81,7 +87,7 @@ namespace LibarayMS.Presentation.Controllers
         [HttpGet("member/{memberId}")]
         public async Task<IActionResult> GetByMemberId(int memberId)
         {
-            var borrowRecords = await _borrowService.GetByMemberIdAsync(memberId);
+            var borrowRecords = await _mediator.Send(new GetBorrowRecordsByMemberIdQuery(memberId));
             return Ok(borrowRecords);
         }
 
@@ -97,7 +103,7 @@ namespace LibarayMS.Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> BorrowBook([FromBody] BorrowRecordCreateDto dto)
         {
-            var borrowRecordId = await _borrowService.BorrowAsync(dto);
+            var borrowRecordId = await _mediator.Send(new BorrowBookCommand(dto));
             return CreatedAtAction(nameof(GetById), new { id = borrowRecordId }, new { Id = borrowRecordId });
         }
 
@@ -110,7 +116,7 @@ namespace LibarayMS.Presentation.Controllers
         [HttpPut("{borrowRecordId}/return")]
         public async Task<IActionResult> ReturnBook(int borrowRecordId, [FromBody] ReturnBookRequest request)
         {
-            var result = await _borrowService.ReturnAsync(borrowRecordId, request.ReturnedAt);
+            var result = await _mediator.Send(new ReturnBookCommand(borrowRecordId, request.ReturnedAt));
             if (!result)
                 return NotFound("Borrow record not found or already returned");
 

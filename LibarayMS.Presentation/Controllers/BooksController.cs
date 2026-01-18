@@ -6,7 +6,6 @@ using LibraryMS.Application.Features.Books.Queries.GetBookById;
 using LibraryMS.Application.Features.Books.Queries.GetBooks;
 using LibraryMS.Application.Features.Books.Queries.GetByCategoryId;
 using LibraryMS.Application.Features.Books.Queries.SearchBook;
-using LibraryMS.Application.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +24,7 @@ namespace LibarayMS.Presentation.Controllers
         #endregion
 
         #region Constructor
-        public BooksController(IBookService bookService, IMediator mediator)
+        public BooksController(IMediator mediator)
         {
             _mediator = mediator;
         }

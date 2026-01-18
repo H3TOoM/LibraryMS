@@ -1,5 +1,12 @@
 using LibraryMS.Application.DTOs.Fines;
-using LibraryMS.Application.Interfaces;
+using LibraryMS.Application.Features.Fines.Commands.Create;
+using LibraryMS.Application.Features.Fines.Commands.Update;
+using LibraryMS.Application.Features.Fines.Commands.Delete;
+using LibraryMS.Application.Features.Fines.Commands.Pay;
+using LibraryMS.Application.Features.Fines.Queries.GetAll;
+using LibraryMS.Application.Features.Fines.Queries.GetById;
+using LibraryMS.Application.Features.Fines.Queries.GetByBorrowRecordId;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +23,7 @@ namespace LibarayMS.Presentation.Controllers
     {
         #region Fields
 
-        private readonly IFineService _fineService;
+        private readonly IMediator _mediator;
 
         #endregion
 
@@ -25,10 +32,10 @@ namespace LibarayMS.Presentation.Controllers
         /// <summary>
         /// Initializes a new instance of the FinesController
         /// </summary>
-        /// <param name="fineService">Service for fine operations</param>
-        public FinesController(IFineService fineService)
+        /// <param name="mediator">Mediator for handling requests</param>
+        public FinesController(IMediator mediator)
         {
-            _fineService = fineService;
+            _mediator = mediator;
         }
 
         #endregion
@@ -42,7 +49,7 @@ namespace LibarayMS.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var fines = await _fineService.GetAllAsync();
+            var fines = await _mediator.Send(new GetAllFinesQuery());
             return Ok(fines);
         }
 
@@ -54,7 +61,7 @@ namespace LibarayMS.Presentation.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var fine = await _fineService.GetByIdAsync(id);
+            var fine = await _mediator.Send(new GetFineByIdQuery(id));
             if (fine == null)
                 return NotFound("Fine not found");
 
@@ -69,7 +76,7 @@ namespace LibarayMS.Presentation.Controllers
         [HttpGet("borrowrecord/{borrowRecordId}")]
         public async Task<IActionResult> GetByBorrowRecordId(int borrowRecordId)
         {
-            var fines = await _fineService.GetByBorrowRecordIdAsync(borrowRecordId);
+            var fines = await _mediator.Send(new GetFinesByBorrowRecordIdQuery(borrowRecordId));
             return Ok(fines);
         }
 
@@ -85,7 +92,7 @@ namespace LibarayMS.Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] FineCreateDto dto)
         {
-            var fineId = await _fineService.CreateAsync(dto);
+            var fineId = await _mediator.Send(new CreateFineCommand(dto));
             return CreatedAtAction(nameof(GetById), new { id = fineId }, new { Id = fineId });
         }
 
@@ -98,7 +105,7 @@ namespace LibarayMS.Presentation.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] FineUpdateDto dto)
         {
-            var result = await _fineService.UpdateAsync(id, dto);
+            var result = await _mediator.Send(new UpdateFineCommand(id, dto));
             if (!result)
                 return NotFound("Fine not found");
 
@@ -113,7 +120,7 @@ namespace LibarayMS.Presentation.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _fineService.DeleteAsync(id);
+            var result = await _mediator.Send(new DeleteFineCommand(id));
             if (!result)
                 return NotFound("Fine not found");
 
@@ -133,7 +140,7 @@ namespace LibarayMS.Presentation.Controllers
         [HttpPut("{id}/pay")]
         public async Task<IActionResult> PayFine(int id, [FromBody] PayFineRequest request)
         {
-            var result = await _fineService.PayAsync(id, request.PaidAt);
+            var result = await _mediator.Send(new PayFineCommand(id, request.PaidAt));
             if (!result)
                 return NotFound("Fine not found");
 

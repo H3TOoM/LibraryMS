@@ -1,5 +1,11 @@
 using LibraryMS.Application.DTOs.Members;
-using LibraryMS.Application.Interfaces;
+using LibraryMS.Application.Features.Members.Commands.Create;
+using LibraryMS.Application.Features.Members.Commands.Update;
+using LibraryMS.Application.Features.Members.Commands.Delete;
+using LibraryMS.Application.Features.Members.Queries.GetAll;
+using LibraryMS.Application.Features.Members.Queries.GetById;
+using LibraryMS.Application.Features.Members.Queries.GetActiveBorrowCount;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +22,7 @@ namespace LibarayMS.Presentation.Controllers
     {
         #region Fields
 
-        private readonly IMemberService _memberService;
+        private readonly IMediator _mediator;
 
         #endregion
 
@@ -25,10 +31,10 @@ namespace LibarayMS.Presentation.Controllers
         /// <summary>
         /// Initializes a new instance of the MembersController
         /// </summary>
-        /// <param name="memberService">Service for member operations</param>
-        public MembersController(IMemberService memberService)
+        /// <param name="mediator">Mediator for handling requests</param>
+        public MembersController(IMediator mediator)
         {
-            _memberService = memberService;
+            _mediator = mediator;
         }
 
         #endregion
@@ -42,7 +48,7 @@ namespace LibarayMS.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var members = await _memberService.GetAllAsync();
+            var members = await _mediator.Send(new GetAllMembersQuery());
             return Ok(members);
         }
 
@@ -54,7 +60,7 @@ namespace LibarayMS.Presentation.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var member = await _memberService.GetByIdAsync(id);
+            var member = await _mediator.Send(new GetMemberByIdQuery(id));
             if (member == null)
                 return NotFound("Member not found");
 
@@ -70,7 +76,7 @@ namespace LibarayMS.Presentation.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Create([FromBody] MemberCreateDto dto)
         {
-            var memberId = await _memberService.CreateAsync(dto);
+            var memberId = await _mediator.Send(new CreateMemberCommand(dto));
             return CreatedAtAction(nameof(GetById), new { id = memberId }, new { Id = memberId });
         }
 
@@ -83,7 +89,7 @@ namespace LibarayMS.Presentation.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] MemberUpdateDto dto)
         {
-            var result = await _memberService.UpdateAsync(id, dto);
+            var result = await _mediator.Send(new UpdateMemberCommand(id, dto));
             if (!result)
                 return NotFound("Member not found");
 
@@ -98,7 +104,7 @@ namespace LibarayMS.Presentation.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _memberService.DeleteAsync(id);
+            var result = await _mediator.Send(new DeleteMemberCommand(id));
             if (!result)
                 return NotFound("Member not found");
 
@@ -117,7 +123,7 @@ namespace LibarayMS.Presentation.Controllers
         [HttpGet("{id}/active-borrows")]
         public async Task<IActionResult> GetActiveBorrowCount(int id)
         {
-            var count = await _memberService.GetActiveBorrowCountAsync(id);
+            var count = await _mediator.Send(new GetActiveBorrowCountQuery(id));
             return Ok(new { ActiveBorrowCount = count });
         }
 

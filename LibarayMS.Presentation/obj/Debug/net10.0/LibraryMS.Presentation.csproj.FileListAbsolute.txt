@@ -222,6 +222,6 @@ D:\Web API Projects\LibarayMS\LibarayMS.Presentation\bin\Debug\net10.0\LibraryMS
 D:\Web API Projects\LibarayMS\LibarayMS.Presentation\bin\Debug\net10.0\BCrypt.Net-Next.dll
 D:\Web API Projects\LibarayMS\LibarayMS.Presentation\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\Web API Projects\LibarayMS\LibarayMS.Presentation\bin\Debug\net10.0\Scalar.AspNetCore.dll
-D:\Web API Projects\LibarayMS\LibarayMS.Presentation\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 D:\Web API Projects\LibarayMS\LibarayMS.Presentation\bin\Debug\net10.0\MediatR.dll
 D:\Web API Projects\LibarayMS\LibarayMS.Presentation\bin\Debug\net10.0\MediatR.Contracts.dll
+D:\Web API Projects\LibarayMS\LibarayMS.Presentation\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
